@@ -46,7 +46,7 @@
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
-            <version>1.11</version>
+            <version>1.15</version>
         </dependency>
     </dependencies>
 
@@ -64,6 +64,32 @@
                     </excludes>
                 </configuration>
             </plugin>
+
+            <!-- Docker -->
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>dockerfile-maven-plugin</artifactId>
+                <version>1.4.13</version>
+                <executions>
+                    <execution>
+                        <id>default</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>build</goal>
+                            <goal>push</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <repository>uniquedevelopment/${project.name}</repository>
+                    <tag>${project.version}</tag>
+                    <googleContainerRegistryEnabled>false</googleContainerRegistryEnabled>
+                    <useMavenSettingsForAuth>true</useMavenSettingsForAuth>
+                    <retryCount>5</retryCount>
+                    <skipDockerInfo>true</skipDockerInfo>
+                </configuration>
+            </plugin>
+            <!--            ****************************-->
         </plugins>
     </build>
 
